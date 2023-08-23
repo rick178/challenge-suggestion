@@ -1,9 +1,21 @@
 package com.challenge.suggestioncities.models;
 
+import jakarta.persistence.*;
 import lombok.*;
+
+@Entity
+@Table(name = "data_suggestion")
+@ToString
+
 public class Cities {
-    @Getter @Setter
+    @Id
+    @Getter @Setter @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Getter @Setter
+    @Getter @Setter @Column(name = "name")
     private String name;
+    @Getter @Setter @Column(name = "lat")
+    private String lat;
+    @Getter @Setter @Column(name = "lon")
+    private String lon;
 }
