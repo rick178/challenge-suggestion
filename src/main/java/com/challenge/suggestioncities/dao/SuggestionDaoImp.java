@@ -10,13 +10,13 @@ import java.util.List;
 
 @Repository
 @Transactional
-public class SuggestionsDaoImp implements SuggestionDao{
+public class SuggestionDaoImp implements SuggestionDao{
 
     @PersistenceContext
     private EntityManager entityManager;
 
     @Override
-    public List<Cities> getCities(String q, Long latitude, Long longitude) {
+    public List<Cities> getCities(String q) {
         String pattern = q.trim() + "%";
         String query = "From Cities WHERE name LIKE :pattern";
         System.out.println("Citie: " + q);

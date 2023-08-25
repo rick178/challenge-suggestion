@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface SuggestionDao {
 
-    List<Cities> getCities (String q, Long latitude, Long longitude);
+    List<Cities> getCities (String q);
 }

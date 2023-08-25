@@ -15,7 +15,7 @@ public class Cities {
     @Getter @Setter @Column(name = "name")
     private String name;
     @Getter @Setter @Column(name = "lat")
-    private String lat;
+    private String latitude;
     @Getter @Setter @Column(name = "lon")
-    private String lon;
+    private String longitude;
 }

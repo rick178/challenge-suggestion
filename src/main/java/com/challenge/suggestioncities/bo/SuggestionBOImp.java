@@ -5,6 +5,7 @@ import com.challenge.suggestioncities.models.Cities;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 @Service
 public class SuggestionBOImp implements SuggestionBO{
@@ -14,17 +15,20 @@ public class SuggestionBOImp implements SuggestionBO{
     @Override
     public List<Cities> getScoredSuggestedMatches(String q, Double latitude, Double longitude) {
 
-         List<Cities> listCities = suggestionDao.getCities(q, null, null);
-
+         List<Cities> listCities = suggestionDao.getCities(q);
+         List<Cities> listCitiesScored = new ArrayList<>();
          for (Cities city : listCities){
-
+             Double score = calculateScore(Double.valueOf(city.getLatitude()), Double.valueOf(city.getLongitude()), latitude, longitude);
+             if(score > 0.0 &&  score < 1.0){
+                 listCitiesScored.add(city);
+             }
              System.out.println("Ciudad: " + city.getName());
-             System.out.println("Valor: " + calculateRelativeDistance(Double.valueOf(city.getLat()), Double.valueOf(city.getLon()), latitude, longitude));
+             System.out.println("Valor: " + calculateScore(Double.valueOf(city.getLatitude()), Double.valueOf(city.getLongitude()), latitude, longitude));
          }
-         return listCities;
+         return listCitiesScored;
     }
     @Override
-    public Double calculateRelativeDistance (Double lat1, Double lon1, Double lat2, Double lon2){
+    public Double calculateScore (Double lat1, Double lon1, Double lat2, Double lon2){
 
         final int R = 6371;
         double latRad1 = Math.toRadians(lat1);
